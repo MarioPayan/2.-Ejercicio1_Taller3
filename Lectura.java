@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.*;
 
+
 public class Lectura 
 {
     ArrayList circunferencia, coordenadas;
@@ -36,7 +37,7 @@ public class Lectura
         return puntos;
     }
     
-    public void leer (String path)
+    public void leer (File file)
     {
         File archivo;
         FileReader fileReader;
@@ -45,7 +46,7 @@ public class Lectura
     
         try
         {
-            archivo = new File(path);
+            archivo = file;
             fileReader = new FileReader (archivo);
             bufferedReader = new BufferedReader(fileReader);
             circunferencia = new ArrayList();
@@ -79,6 +80,9 @@ public class Lectura
         {
             System.err.println(e.getMessage());
         }
+        Tokenizer(circunferencia);
+        Tokenizer(coordenadas);
+        Puntos(coordenadas);
     }
     
     public void Tokenizer (ArrayList lista)
@@ -132,8 +136,8 @@ public class Lectura
         
         for (int x = 0; x < (cloneCoordenadas.size() - 1); x += 2) 
         {
-            puntoX = Integer.parseInt((String) cloneCoordenadas.get(x));
-            puntoY = Integer.parseInt((String) cloneCoordenadas.get(x + 1));
+            puntoX = Integer.valueOf((String)  cloneCoordenadas.get(x));
+            puntoY = Integer.valueOf((String)  cloneCoordenadas.get(x + 1));
             
             clonePuntos [posicion][0] = puntoX;
             clonePuntos [posicion][1] = puntoY;

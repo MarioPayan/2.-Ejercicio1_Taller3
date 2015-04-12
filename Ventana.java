@@ -1,5 +1,6 @@
 
-import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory;
+
+//import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -15,6 +16,8 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+
+
 public class Ventana extends JFrame implements ActionListener {
  
 private Container contenedor;
@@ -23,6 +26,8 @@ private JLabel labelTitulo, labelExaminar, labelResultado;
 private JTextField campoRtArchivo;
 private JList list;
 private DefaultListModel model;
+private Lectura lector;
+private Logica logica;
 
 public Ventana(){
   
@@ -119,38 +124,33 @@ public void mostrarResultados(ArrayList resultado){
  
           dispose();
       }else if(evento.getSource() == botonExaminar){
-      
-          selector();
-          //se debe pasar el File a la clase que lo
-          //parte y hace el calculo
+        
+          lector = new Lectura();
+          lector.leer(selector());
+          
+          
       
       }else if(evento.getSource() == BotonAnalizar){
       
-          //clase encargada de analizar
-          //debe retornar un arraylist con los resultados
-          //en el formato pedido Ejemplo
-          
-          ArrayList arr = new ArrayList();
-          arr.add("Ejemplo1");
-          arr.add("Ejemplo2");
-          arr.add("Ejemplo3");
-          
-          mostrarResultados(arr);
-          
-      
-      }
-      
-    }
-  
+          int x1 = Integer.valueOf((String) lector.getCircunferencia().get(0));
+          int y1 = Integer.valueOf((String) lector.getCircunferencia().get(1));
+          int r1 = Integer.valueOf((String) lector.getCircunferencia().get(2));
+          int x2 = Integer.valueOf((String) lector.getCircunferencia().get(3));
+          int y2 = Integer.valueOf((String) lector.getCircunferencia().get(4));
+          int r2 = Integer.valueOf((String) lector.getCircunferencia().get(5));
+          int[][] points = lector.getPuntos();
 
+          logica = new Logica(x1, y1, r1, x2, y2, r2, points);
+          
+          ArrayList arr = logica.resultExport();
+
+          mostrarResultados(arr);
+      }      
+    }
 
  public static void main(String args[]){
- 
      Ventana vent = new Ventana();
      vent.setVisible(true);
      vent.setDefaultCloseOperation(EXIT_ON_CLOSE);
- 
- 
- 
  }
 }

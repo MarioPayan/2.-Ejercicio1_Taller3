@@ -2,6 +2,7 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
+
 class Logica
 {
 	private int radio1=0;
@@ -14,7 +15,7 @@ class Logica
 	
 	private int[][] point;
 	
-	private String results = "";
+	private ArrayList results = new ArrayList();
 	
 	Logica(int x1, int y1, int r1, int x2, int y2, int r2, int[][] point){
 		this.x1=x1;
@@ -33,12 +34,12 @@ class Logica
 		}
 		
 		run();
-		print();
+		resultExport();
 	}
 	
 	public void run(){
 		for(int i=0;i<point.length;i++){
-			results += step(point[i][0],point[i][1]) + "\n";
+			results.add(step(point[i][0],point[i][1]) + "\n");
 		}
 	}
 	
@@ -62,8 +63,8 @@ class Logica
 		return result;
 	}
 	
-	public void print(){
-		System.out.println(results);
+	public ArrayList resultExport(){
+		return results;
 	}
 	/* PRUEBA
 	public static void main (String[] args) throws java.lang.Exception
